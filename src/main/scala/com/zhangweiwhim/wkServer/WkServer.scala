@@ -1,7 +1,7 @@
 package com.zhangweiwhim.wkServer
 
 import java.sql.{Connection, DriverManager}
-import java.time.LocalDate.now
+import java.time.LocalDateTime.now
 import java.util.Properties
 
 import org.springframework.web.bind.annotation.{RequestMapping, RequestMethod, RestController}
@@ -44,8 +44,8 @@ class WkServer {
       pstm.setInt(1, 999)
       pstm.setString(2, "bigdata_wk")
       pstm.setString(3, "大数据端wk逾期表计算")
-      pstm.setDate(4, java.sql.Date.valueOf(startDate))
-      pstm.setDate(5, java.sql.Date.valueOf(endDate))
+      pstm.setObject(4, startDate)
+      pstm.setObject(5, endDate)
       pstm.setInt(8, 0)
       pstm.setString(9, "每日")
       pstm.setString(10, null)
