@@ -1,0 +1,51 @@
+plugins {
+    id 'org.springframework.boot' version '2.2.6.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+    id 'java'
+    id 'scala'
+}
+
+group = 'com.zhangweiwhim'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+repositories {
+//	mavenCentral()
+    maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
+}
+String sparkVersion = '2.4.4'
+String scalaBaseVersion = '2.11'
+dependencies {
+    implementation('org.scala-lang:scala-library:2.11.12') {
+        exclude group: 'org.slf4j', module: 'slf4j-log4j12'
+    }
+    implementation('org.springframework.boot:spring-boot-starter-web')
+//	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.2'
+    implementation 'mysql:mysql-connector-java:5.1.48'
+    implementation 'org.mybatis:mybatis:3.5.2'
+    implementation('org.apache.spark:spark-core_' + scalaBaseVersion + ':' + sparkVersion) {
+        exclude group: 'org.slf4j', module: 'slf4j-log4j12'
+    }
+    implementation('org.apache.spark:spark-sql_' + scalaBaseVersion + ':' + sparkVersion) {
+        exclude group: 'org.slf4j', module: 'slf4j-log4j12'
+    }
+    implementation('org.apache.spark:spark-hive_' + scalaBaseVersion + ':' + sparkVersion) {
+        exclude group: 'org.slf4j', module: 'slf4j-log4j12'
+    }
+    compile group: 'org.apache.spark', name: 'spark-launcher_2.11', version: '2.4.5'
+//    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+//        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+//    }
+}
+
+//test {
+//    useJUnitPlatform()
+//}
+
+//bootJar{
+//    baseName 'wk_batch'
+//    manifest {
+//        attributes 'Main-Class': 'com.zhangweiwhim.WkprojApplication'
+//    }
+//    version 0.1
+//}
