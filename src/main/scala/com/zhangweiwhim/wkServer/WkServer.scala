@@ -4,7 +4,9 @@ import java.sql.{Connection, DriverManager}
 import java.time.LocalDateTime.now
 import java.util.Properties
 
+import com.alibaba.fastjson.JSONObject
 import org.springframework.web.bind.annotation.{RequestMapping, RequestMethod, RestController}
+
 
 /**
  * Description: wkServer
@@ -16,7 +18,7 @@ import org.springframework.web.bind.annotation.{RequestMapping, RequestMethod, R
 @RequestMapping(Array("/bigdata"))
 class WkServer {
   @RequestMapping(value = Array("/doWk"), method = Array(RequestMethod.GET))
-  def doWk(): String = {
+  def doWk(): JSONObject = {
     val startDate = now
     val result = Launcher.launch()
     val properties = new Properties()
@@ -26,7 +28,7 @@ class WkServer {
     val table = properties.getProperty("mysql.output.table")
     val mysqlUser = properties.getProperty("mysql.user")
     val mysqlPassword = properties.getProperty("mysql.password")
-    val endDate =now
+    val endDate = now
     //更新标签
     val conn: Connection = getOnlineConnection(url, mysqlUser, mysqlPassword)
     try {
@@ -34,10 +36,10 @@ class WkServer {
       val sql = new StringBuilder()
         .append("replace into m_batch (BATCHID,PROCNAME,BATCHNAME,STARTTIME,ENDTIME,BATCHSTATUS,RESULT,DATACOUNT,BATCHWORKCYCLE,PARAMETERS,SORTNO,VALIDFLG) values(?,?,?,?,?,?,?,?,?,?,?,?)")
       val pstm = conn.prepareStatement(sql.toString())
-      if(result=="0000"){
+      if (result == "0000") {
         pstm.setInt(6, 0)
         pstm.setString(7, "执行成功。")
-      }else{
+      } else {
         pstm.setInt(6, 99)
         pstm.setString(7, "执行失败。")
       }
@@ -58,7 +60,9 @@ class WkServer {
     finally {
       conn.close()
     }
-    result
+    val jsonObj = new JSONObject()
+    jsonObj.put("result", result)
+    jsonObj
   }
 
   def getOnlineConnection(onlineUrl: String, username: String, password: String): Connection = {

@@ -15,6 +15,7 @@ repositories {
 }
 String sparkVersion = '2.4.4'
 String scalaBaseVersion = '2.11'
+String f_jsonVersion = '1.2.60'
 dependencies {
     implementation('org.scala-lang:scala-library:2.11.12') {
         exclude group: 'org.slf4j', module: 'slf4j-log4j12'
@@ -32,6 +33,7 @@ dependencies {
     implementation('org.apache.spark:spark-hive_' + scalaBaseVersion + ':' + sparkVersion) {
         exclude group: 'org.slf4j', module: 'slf4j-log4j12'
     }
+    implementation ('com.alibaba:fastjson:' + f_jsonVersion) { changing = true } //use for bean to json
     compile group: 'org.apache.spark', name: 'spark-launcher_2.11', version: '2.4.5'
 //    testImplementation('org.springframework.boot:spring-boot-starter-test') {
 //        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
