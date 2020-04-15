@@ -25,7 +25,6 @@ class WkServer {
     val path = this.getClass.getResourceAsStream("/conf.properties") // Thread.currentThread().getContextClassLoader.getResource("/conf.properties").getPath //文件要放到resource文件夹下
     properties.load(path)
     val url = properties.getProperty("mysql.db.url")
-    val table = properties.getProperty("mysql.output.table")
     val mysqlUser = properties.getProperty("mysql.user")
     val mysqlPassword = properties.getProperty("mysql.password")
     val endDate = now
@@ -43,7 +42,7 @@ class WkServer {
         pstm.setInt(6, 99)
         pstm.setString(7, "执行失败。")
       }
-      pstm.setInt(1, 999)
+      pstm.setInt(1, 282)
       pstm.setString(2, "bigdata_wk")
       pstm.setString(3, "大数据端wk逾期表计算")
       pstm.setObject(4, startDate)

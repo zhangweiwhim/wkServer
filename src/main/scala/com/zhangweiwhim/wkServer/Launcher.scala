@@ -15,7 +15,8 @@ object Launcher {
     var result = "0000"
     val handler = new SparkLauncher()
       .setAppName("wk")
-      .setSparkHome("/opt/cloudera/parcels/CDH/lib/spark")
+//      .setSparkHome("/opt/cloudera/parcels/CDH/lib/spark")
+      .setSparkHome("/opt/cloudera/parcels/SPARK2/lib/spark2")
       .setMaster("yarn")
       .setAppResource("/root/wk/wk_batch-0.1.jar")
       .setMainClass("com.zhangweiwhim.wkServer.RepayCalc")
